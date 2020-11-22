@@ -11,7 +11,7 @@ class onlineExtractor():
       outputs = model.layers[layerNo].output
       model = Model(inputs=model.inputs, outputs=outputs)
       return model
-    def extract_features(url, model):
+    def extract_features(self, url, model):
         
        
         response = wget.download(url)
