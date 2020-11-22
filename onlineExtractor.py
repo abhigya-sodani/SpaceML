@@ -1,4 +1,4 @@
-class onlineExtractor():
+class onlineExtractor:
     def __init__(self,inputModel,date,inputZoom,saveFile):
         self.givenModel=inputModel
         self.model = self.extract_model_till_layer(tf.keras.models.load_model(self.givenModel),10) #replace with whichever model you wish to featurize with
