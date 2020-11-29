@@ -26,7 +26,7 @@ from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Flatten, Dense, Dropout, GlobalAveragePooling2D
 
-class onlineExtractor():
+class GIBSExtractor():
     def __init__(self,inputModel,date,inputZoom,saveFile):
         self.givenModel=inputModel
         self.model = self.extract_model_till_layer(tf.keras.models.load_model(self.givenModel),10) #replace with whichever model you wish to featurize with
