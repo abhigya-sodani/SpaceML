@@ -84,9 +84,9 @@ class GIBSExtractor():
 
             # Length of item vector that will be indexed
             t=AnnoyIndex(len(features[0]))
-            for p in range(len(features)):
-                feature = features[p]
-                t.add_item(p, feature)
+            for i in range(len(features)):
+                feature = features[i]
+                t.add_item(i, feature)
 
             t.build(40)  # 40 trees
             t.save(self.file)
@@ -94,9 +94,9 @@ class GIBSExtractor():
         except:
             print("Error occured, indexing the current features")
             t=AnnoyIndex(features[0])
-            for p in range(len(features)):
-                feature = features[p]
-                t.add_item(p, feature)
+            for i in range(len(features)):
+                feature = features[i]
+                t.add_item(i, feature)
 
             t.build(40)  # 40 trees
             t.save(self.file)
