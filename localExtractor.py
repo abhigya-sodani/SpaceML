@@ -41,7 +41,7 @@ class localExtractor:
 
     def extract_features(self,file, model):
                 
-        a = np.asarray(PIL.Image.open('C://Users//abhig//level8images//'+file))
+        a = np.asarray(PIL.Image.open(self.folder+file))
         a=np.resize(a,(1,224,224,3))
         a=a/255       
         #preprocessed_img = preprocess_input(a)
