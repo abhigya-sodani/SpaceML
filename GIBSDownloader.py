@@ -28,7 +28,7 @@ from tensorflow.keras.layers import Input, Flatten, Dense, Dropout, GlobalAverag
 
 class GIBSDownloader:
 
-    __init__(self, zoom, date,folder):
+    def __init__(self, zoom, date,folder):
         self.zoomLevel=zoom
         self.date=date #yyyy-mm-dd
         self.folder=folder
