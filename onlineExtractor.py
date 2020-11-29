@@ -1,4 +1,32 @@
-class onlineExtractor:
+from annoy import AnnoyIndex
+import requests
+from io import BytesIO
+import cv2
+from PIL import Image
+import numpy as np
+import time
+import numpy as np
+from numpy.linalg import norm
+import pickle
+from tqdm import tqdm, tqdm_notebook
+import os
+import random
+import time
+import math
+import wget
+import requests
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.applications.vgg19 import VGG19
+from tensorflow.keras.applications.mobilenet import MobileNet
+from tensorflow.keras.applications.inception_v3 import InceptionV3
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Flatten, Dense, Dropout, GlobalAveragePooling2D
+
+class onlineExtractor():
     def __init__(self,inputModel,date,inputZoom,saveFile):
         self.givenModel=inputModel
         self.model = self.extract_model_till_layer(tf.keras.models.load_model(self.givenModel),10) #replace with whichever model you wish to featurize with
@@ -24,7 +52,7 @@ class onlineExtractor:
         normalized_features = flattened_features / norm(flattened_features)
         return normalized_features
 
-    def extract(self)
+    def extract(self):
         features=[]
         try:
             
@@ -34,17 +62,18 @@ class onlineExtractor:
 
                 for i in range(0,10):
                     for j in range(0,20):
-                        feats=extract_features("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom+"/"+str(i)+"/"+str(j)+".jpg", self.model)
+                        feats=self.extract_features("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom+"/"+str(i)+"/"+str(j)+".jpg", self.model)
                         print("length",len(feats))
                         features.append(feats)
                         print(str(i)+" "+str(j))
                         
                     time.sleep(30)
+            
             if(self.zoom==8):
 
                 for i in range(0,160):
                     for j in range(0,320):
-                        feats=extract_features("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom+"/"+str(i)+"/"+str(j)+".jpg", self.model)
+                        feats=self.extract_features("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom+"/"+str(i)+"/"+str(j)+".jpg", self.model)
                         print("length",len(feats))
                         features.append(feats)
                         print(str(i)+" "+str(j))
