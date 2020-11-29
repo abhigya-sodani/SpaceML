@@ -52,26 +52,26 @@ class localExtractor:
 
     def extract(self):
                             
-        features=[]
+        all_features=[]
         try:
             
         
             directory=os.listdir(self.folder)
         
             for i in range(0,len(directory)):
-                feats=self.extract_features(str(i)+".jpg",self.model)
-                print("length",len(feats))
-                features.append(feats)
+                features=self.extract_features(str(i)+".jpg",self.model)
+                print("length",len(features))
+                all_features.append(features)
                 print(i)
-                counter+=1
+                
         
                 
 
 
                 # Length of item vector that will be indexed
-                t=AnnoyIndex(len(features[0]))
-                for p in range(len(features)):
-                    feature = features[p]
+                t=AnnoyIndex(len(all_features[0]))
+                for p in range(len(all_features)):
+                    feature = all_features[p]
                     t.add_item(p, feature)
 
                 t.build(40)  # 40 trees
@@ -79,9 +79,9 @@ class localExtractor:
 
         except:
             
-            t=AnnoyIndex(features[0])
-            for p in range(len(features)):
-                feature = features[p]
+            t=AnnoyIndex(all_features[0])
+            for p in range(len(all_features)):
+                feature = all_features[p]
                 t.add_item(p, feature)
 
             t.build(40)  # 40 trees
