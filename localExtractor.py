@@ -70,9 +70,9 @@ class localExtractor:
 
                 # Length of item vector that will be indexed
                 t=AnnoyIndex(len(all_features[0]))
-                for p in range(len(all_features)):
-                    feature = all_features[p]
-                    t.add_item(p, feature)
+                for i in range(len(all_features)):
+                    feature = all_features[i]
+                    t.add_item(i, feature)
 
                 t.build(40)  # 40 trees
                 t.save(self.file)
@@ -80,9 +80,9 @@ class localExtractor:
         except:
             
             t=AnnoyIndex(all_features[0])
-            for p in range(len(all_features)):
-                feature = all_features[p]
-                t.add_item(p, feature)
+            for i in range(len(all_features)):
+                feature = all_features[i]
+                t.add_item(i, feature)
 
             t.build(40)  # 40 trees
             t.save(self.file)
