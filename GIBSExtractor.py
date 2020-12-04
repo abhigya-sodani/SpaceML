@@ -51,7 +51,16 @@ class GIBSExtractor():
         flattened_features = features.flatten()
         normalized_features = flattened_features / norm(flattened_features)
         return normalized_features
+    
+    def saveFeatures(self,features):
+        t=AnnoyIndex(features[0])
+        for i in range(len(features)):
+            feature = features[i]
+            t.add_item(i, feature)
 
+        t.build(40)  # 40 trees
+        t.save(self.file)
+        
     def extract(self):
         features=[]
         try:
@@ -82,23 +91,12 @@ class GIBSExtractor():
 
 
 
-            # Length of item vector that will be indexed
-            t=AnnoyIndex(len(features[0]))
-            for i in range(len(features)):
-                feature = features[i]
-                t.add_item(i, feature)
-
-            t.build(40)  # 40 trees
-            t.save(self.file)
+           
+            saveFeatures(features)
+            
 
         except:
             print("Error occured, indexing the current features")
-            t=AnnoyIndex(features[0])
-            for i in range(len(features)):
-                feature = features[i]
-                t.add_item(i, feature)
-
-            t.build(40)  # 40 trees
-            t.save(self.file)
-
+           
+`           saveFeatures(features)
             
