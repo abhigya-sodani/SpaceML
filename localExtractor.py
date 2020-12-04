@@ -42,6 +42,7 @@ class localExtractor:
 
         t.build(40)  # 40 trees
         t.save(self.file)
+
     def __extract_model_till_layer(self,model, layerNo):
 
         outputs = model.layers[layerNo].output
