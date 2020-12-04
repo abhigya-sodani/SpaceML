@@ -24,21 +24,22 @@ from tensorflow.keras.applications.mobilenet import MobileNet
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Flatten, Dense, Dropout, GlobalAveragePooling2D
+import enum
 
-class zooms(enum.Enum):
+class ZoomLevel(enum.Enum):
    FOUR=4
    EIGHT=8
 
 class GIBSDownloader:
 
     def __init__(self, zoom, date,folder):
-        self.zoomLevel=zoom
+        self.zoom_level=zoom #has to be string FOUR or EIGHT
         self.date=date #yyyy-mm-dd
         self.folder=folder
 
     def download(self):
 
-        if(zooms.self.zoomLevel==8):
+        if(self.zoom_level==ZoomLevel.EIGHT):
             counter=0
             for i in range(0,160):
                     for j in range(0,320):
@@ -46,7 +47,7 @@ class GIBSDownloader:
 
 
                         with open(self.folder+str(counter)+'.jpg', 'wb') as handle:
-                                response = requests.get("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+zooms.self.zoomLevel+"/"+str(i)+"/"+str(j)+".jpg",stream=True)
+                                response = requests.get("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom_level+"/"+str(i)+"/"+str(j)+".jpg",stream=True)
 
                                 if not response.ok:
                                     print(response)
@@ -59,7 +60,7 @@ class GIBSDownloader:
                         print(str(i),str(j))
 
                         counter+=1
-            if(zooms.self.zoomLevel==4):
+            if(self.zoom_level==ZoomLevel.FOUR):
                 counter=0
                 for i in range(0,10):
                         for j in range(0,20):
@@ -67,7 +68,7 @@ class GIBSDownloader:
 
 
                             with open(self.folder+str(counter)+'.jpg', 'wb') as handle:
-                                    response = requests.get("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+zooms.self.zoomLevel+"/"+str(i)+"/"+str(j)+".jpg",stream=True)
+                                    response = requests.get("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/MODIS_Terra_CorrectedReflectance_TrueColor/default/"+self.date+"/250m/"+self.zoom_level+"/"+str(i)+"/"+str(j)+".jpg",stream=True)
 
                                     if not response.ok:
                                         print(response)
