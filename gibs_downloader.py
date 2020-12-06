@@ -7,7 +7,7 @@ class ZoomLevel(enum.Enum):
     EIGHT = 8
 
 
-class GIBSDownloader:
+class GibsDownloader:
 
     def __init__(self, zoom, date, folder):
         self.zoom_level = zoom  #has to be string FOUR or EIGHT
