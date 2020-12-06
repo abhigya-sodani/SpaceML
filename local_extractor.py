@@ -6,7 +6,7 @@ import os
 from tensorflow.keras.models import Model
 
 
-class localExtractor:
+class LocalExtractor:
     def __init__(self, inputModel, folder, saveFile):
         self.model = self.__extract_model_till_layer(inputModel, 10)
         self.folder = folder
